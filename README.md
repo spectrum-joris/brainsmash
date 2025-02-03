@@ -58,48 +58,6 @@ BRAINSMASH is een interactieve webapplicatie voor een jaarlijkse quizcompetitie 
 
 ---
 
-## 🗄️ Database Architectuur (Supabase)
-
-### 🔹 Tabellen:
-1. **users** (gebaseerd op `auth.users`)
-   - `id` (UUID, primary key)
-   - `nickname`
-   - `avatar_url`
-   - `role` (leerling/leerkracht)
-
-2. **quizzes**
-   - `id` (UUID, primary key)
-   - `title`
-   - `description`
-   - `teacher_id` (FK naar `users.id`)
-   - `difficulty`
-   - `grade`
-   - `school_id`
-   - `created_at`
-
-3. **questions**
-   - `id` (UUID, primary key)
-   - `quiz_id` (FK naar `quizzes.id`)
-   - `question_text`
-   - `options` (JSONB array van opties indien multiple choice)
-   - `correct_answers` (JSONB array)
-   - `time_limit` (10s, 20s, 30s, 60s)
-
-4. **quiz_results**
-   - `id` (UUID, primary key)
-   - `quiz_id` (FK naar `quizzes.id`)
-   - `user_id` (FK naar `users.id`)
-   - `score`
-   - `attempts`
-   - `completed_at`
-
-5. **leaderboard**
-   - `user_id` (FK naar `users.id`)
-   - `highest_score`
-   - `rank`
-
----
-
 ## 🚀 Installatie & Opzetten
 
 ### 📌 **Benodigdheden**
@@ -111,7 +69,7 @@ BRAINSMASH is een interactieve webapplicatie voor een jaarlijkse quizcompetitie 
 
 1. **Clone de repository**
    ```sh
-   git clone https://github.com/jouw-gebruikersnaam/BRAINSMASH.git
+   git clone https://github.com/spectrum-joris/BRAINSMASH.git
    cd BRAINSMASH
    ```
 
@@ -135,19 +93,24 @@ De app is nu beschikbaar op `http://localhost:5173`
 
 ---
 
-## 🎨 UI/UX en Animaties
-- **Responsieve vormgeving** met flexbox/grid
-- **Laden van data**: spinner met een brein-logo dat pulserend beweegt
-- **Hover-animaties** op knoppen en quiz cards
-- **Feedback-effecten**: Groen knipperend effect bij correcte antwoorden, rood bij foute antwoorden
+## 🌟 Aanpak & Technologieën
 
----
+### ✅ Frontend:
+- **Vanilla JavaScript** voor snelle, lichte en flexibele ontwikkeling  
+- **CSS (Flexbox & Grid)** voor een responsieve en moderne lay-out  
+- **CSS Animations & GSAP** voor soepele transities en micro-interacties  
+- **Three.js** voor visuele flair en 3D-elementen (bijv. een draaiend brein of bewegende elementen in de UI)  
 
-## 🔒 Authenticatie & Beveiliging
-- **Microsoft SSO via Supabase Auth**
-- **Role-Based Access Control (RBAC)** in Supabase
-- **Row Level Security (RLS)** om enkel toegestane data op te halen
-- **Storage Buckets** voor avatars en eventuele quizmedia
+### ✅ Backend & Auth:
+- **Supabase (PostgreSQL)** voor opslag en beheer van quizdata  
+- **Supabase Auth met SSO** voor inloggen via Microsoft-schoolaccounts  
+- **Rollenbeheer (leerling vs. leerkracht)** via Supabase Row Level Security (RLS)  
+
+### ✅ Performance & UX:
+- **Lichte codebase zonder frameworks** voor snelheid  
+- **Lazy loading van content** voor snellere paginalading  
+- **Responsive design** voor mobiele en desktopgebruik  
+- **Caching & optimalisatie** voor snelle laadtijden  
 
 ---
 
@@ -155,6 +118,52 @@ De app is nu beschikbaar op `http://localhost:5173`
 - Mogelijkheid om quizzen te delen of te exporteren
 - Team-modus waarbij leerlingen in groep kunnen spelen
 - Meer gamification met extra badges en beloningen
+
+---
+
+## 📅 Stappenplan (Februari - Mei)
+
+### 🔹 Februari: Structuur & Basisfunctionaliteiten
+**📌 Doel:** Een functionele, maar eenvoudige versie bouwen zonder visuele flair.  
+- Basis **HTML/CSS** structuur opzetten (header, navigatie, dashboard, quizpagina).  
+- Connectie met **Supabase** en **SSO-auth** implementeren.  
+- Gebruikersrollen (**leerling/leerkracht**) bepalen en juiste data tonen.  
+- **CRUD-operaties** voor quizzen en antwoorden maken.  
+
+➡️ **Deliverable:** Een ruwe versie waarin je kan inloggen en quizzen kan bekijken/aanmaken.  
+
+---
+
+### 🔹 Maart: UI/UX en Animaties
+**📌 Doel:** De applicatie visueel aantrekkelijk en interactief maken.  
+- **Animaties & micro-interacties** toevoegen met CSS en GSAP.  
+- **Three.js experimenteren**: eenvoudige 3D-animaties (bijv. bewegend brein).  
+- **Responsive maken**: mobiele en desktopversie afstemmen.  
+- **Scorebord & statistieken** bouwen (Top 10, beste scores, per school).  
+
+➡️ **Deliverable:** Een werkende en aantrekkelijke quizomgeving met leaderboard en scoreweergave.  
+
+---
+
+### 🔹 April: Optimalisatie & Extra Features
+**📌 Doel:** De app finetunen en extra’s toevoegen.  
+- **Caching & lazy loading** optimaliseren voor snelheid.  
+- **Tekst-naar-spraak** implementeren voor quizvragen.  
+- **Sound effects & haptische feedback** bij interacties toevoegen.  
+- **Finale UI-polish & testen** op meerdere apparaten.  
+
+➡️ **Deliverable:** Een volledige versie die getest kan worden door leerlingen en leerkrachten.  
+
+---
+
+### 🔹 Mei: Media Push & Live Lancering
+**📌 Doel:** De applicatie promoten en publiekelijk lanceren.  
+- **Beta-testfase** met echte gebruikers.  
+- **Feedback verwerken** en laatste aanpassingen doen.  
+- **Publiciteit & marketing** voorbereiden (socials, persberichten, video’s).  
+- **Definitieve versie online zetten** & lanceringsevent houden.  
+
+➡️ **Final Deliverable:** **BRAINSMASH** is live en klaar voor gebruik! 🚀
 
 ---
 
