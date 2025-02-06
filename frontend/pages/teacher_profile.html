@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn Profiel</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <main>
+        <h1>Mijn Profiel</h1>
+        <img id="avatar" src="../public/default-avatar.png" alt="Avatar">
+        <input type="file" id="avatarUpload">
+        <button id="uploadBtn">Profielfoto wijzigen</button>
+        <h2 id="nickname">Leerkracht</h2>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>School:</strong> <span id="school"></span></p>
+        <p><strong>Richting:</strong> <span id="richting"></span></p>
+
+        <h2>Quiz Statistieken</h2>
+        <p><strong>Aantal aangemaakte quizzen:</strong> <span id="totalQuizzes"></span></p>
+        <p><strong>Aantal attempts:</strong> <span id="totalAttempts"></span></p>
+        <p><strong>Gemiddelde score:</strong> <span id="avgScore"></span></p>
+        <p><strong>Best presterende quiz:</strong> <span id="bestQuiz"></span></p>
+    </main>
+    <script src="../scripts/teacher_profile.js"></script>
+</body>
+</html>

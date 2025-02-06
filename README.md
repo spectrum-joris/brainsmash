@@ -191,3 +191,26 @@ Wil je bijdragen aan het project? Volg deze stappen:
 
 ---
 🚀 **Veel plezier met BRAINSMASH!**
+
+
+---
+
+## instructies voor de leerlingen van Het Spectrum
+**initializeer npm en installeer de nodige dependencies**
+- npm init -y
+- npm install
+- start de express server: node backend/server.js
+- voor automatisch herstarten bij wijzigingen: nodemon backend/server.js (! "npm install -g nodemon" vereist)
+- fontend kan je gewoon met Live Server extensie in VSC openen
+
+**dependencies**
+deze vind je terug in de package.json file: 
+- express → Webserver
+- cors → Beheert Cross-Origin Requests
+- dotenv → Beheert gevoelige API-keys via een .env bestand
+- @supabase/supabase-js → Communicatie met de Supabase API
+- multer → Beheert bestanduploads (bijv. profielfoto's)
+
+**test**
+- **API testen:** http://localhost:5000/api/auth/test
+- **frontend (met Live Server) testen:** http://127.0.0.1:5500/frontend/index.html 
