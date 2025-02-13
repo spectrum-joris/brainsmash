@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Quizzes - Leerkracht</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <!-- Header voor leerkrachten -->
+    <div id="header"></div>
+
+    <!-- Statistieken -->
+    <section id="stats">
+        <h2>Quiz Statistieken</h2>
+        <p>Hoogste score: <span id="highest-score">Laden...</span></p>
+        <p>Aantal keren voltooid: <span id="total-attempts">Laden...</span></p>
+    </section>
+
+    <!-- Zoekveld -->
+    <section id="search">
+        <input type="text" id="search-input" placeholder="Zoek quizzen...">
+        <button id="search-button">Zoeken</button>
+    </section>
+
+    <!-- Lijst met quizzen -->
+    <main>
+        <h1>Mijn Quizzen</h1>
+        <div id="quiz-list">
+            <p>Quizzen laden...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="../scripts/layout.js"></script>
+    <script src="../scripts/dashboard_teacher.js"></script>
+</body>
+</html>
