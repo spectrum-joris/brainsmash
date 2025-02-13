@@ -65,6 +65,10 @@ BRAINSMASH is een interactieve webapplicatie voor een jaarlijkse quizcompetitie 
 - Supabase account
 - Vite (voor snelle React ontwikkeling)
 
+*** correctie op benodigdheden *** 
+We gebruiken Vite en React niet.
+Start gewoon op met het CLI commando "nodemon backend/server.js" 
+
 ### 📥 **Project opzetten**
 
 1. **Clone de repository**
@@ -80,16 +84,17 @@ BRAINSMASH is een interactieve webapplicatie voor een jaarlijkse quizcompetitie 
 
 3. **Creëer een `.env` bestand en voeg de Supabase API-sleutels toe**
    ```sh
-   VITE_SUPABASE_URL=your-supabase-url
-   VITE_SUPABASE_ANON_KEY=your-anon-key
+   SUPABASE_URL=de_url
+   SUPABASE_KEY=de_key
+   PORT=3000
    ```
 
-4. **Start de development server**
+4. **Start de server**
    ```sh
-   npm run dev
+   nodemon backend/server
    ```
 
-De app is nu beschikbaar op `http://localhost:5173`
+De app is nu beschikbaar op `http://localhost:${PORT}`
 
 ---
 
@@ -203,6 +208,18 @@ Wil je bijdragen aan het project? Volg deze stappen:
 - voor automatisch herstarten bij wijzigingen: nodemon backend/server.js (! "npm install -g nodemon" vereist)
 - fontend kan je gewoon met Live Server extensie in VSC openen
 
+**Wil je vanuit jouw repo pushen**
+echo "# BRAINSMASH-web" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Jpetillion/BRAINSMASH-web.git
+git push -u origin main
+git add .
+git commit -m""
+git push https://github.com/Jpetillion/BRAINSMASH-web.git 
+
 **dependencies**
 deze vind je terug in de package.json file: 
 - express → Webserver
@@ -214,3 +231,29 @@ deze vind je terug in de package.json file:
 **test**
 - **API testen:** http://localhost:5000/api/auth/test
 - **frontend (met Live Server) testen:** http://127.0.0.1:5500/frontend/index.html 
+
+**MVC**
+Deze applicatie is gebouwd in een MVC project structuur, wat de code onderhoudbaar en uitbreidbaar maakt.
+
+| Onderdeel      | Wat doet het?                                                         | Waar zit dit in ons project?                          |
+|---------------|------------------------------------------------------------------------|------------------------------------------------------|
+| **Model (M)** | Beheert de database, definieert welke data we opslaan en hoe we deze ophalen. | Supabase database, queries in controllers          |
+| **View (V)**  | De frontend: toont data aan de gebruiker en stuurt gebruikersacties naar de backend. | HTML, CSS en JavaScript in de `frontend/` folder  |
+| **Controller (C)** | Verwerkt gebruikersverzoeken, haalt data op uit het model en stuurt een antwoord naar de View. | Express.js controllers in `backend/controllers/` |
+
+# WERKEND
+## Supabase
+- tabellen zouden in orde moeten zijn
+- enumeraties: bij te werken en te verfijnen (niet alle tabellen gebruiken ze al ; sommige zijn niet ingevuld: scholen, richtingen, vakken)
+- policies op public.users voor login, registratie, updaten en verwijderen van eigen profiel
+## BACKEND JavaScript
+- auth controller, route, middlewares voor registratie en login ; gebruik van rollen is nog niet duidelijk
+## FRONTEND JavaScript
+- mogelijks zijn HTML en scripts/auth.js niet volledig op mekaar afgestemd 
+## HTML
+- registratie en login 
+## CSS
+- nog niets ; moet op basis van ontwerp en system design 
+
+# LICENCE
+all rights reserved

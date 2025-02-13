@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../styles/auth.css">
+    <title>Inloggen</title>
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <input type="email" id="email" placeholder="E-mail" required>
-        <input type="password" id="password" placeholder="Wachtwoord" required>
-        <button type="submit">Login</button>
-    </form>
+    <main>
+        <h1>Inloggen</h1>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="password" id="password" placeholder="Wachtwoord" required>
+            <button type="submit">Inloggen</button>
+        </form>
+        <p id="error-message" style="color: red;"></p>
+        <p>Heb je nog geen account? <a href="/pages/register.html">Registreer hier</a></p>
+    </main>
     <script src="../scripts/auth.js"></script>
 </body>
 </html>

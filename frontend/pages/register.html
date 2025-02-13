@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registratie</title>
-    <link rel="stylesheet" href="../styles/auth.css">
+    <title>Registreren</title>
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <h2>Registreer</h2>
-    <form id="registerForm">
-        <input type="email" id="email" placeholder="School e-mail" required>
-        <input type="password" id="password" placeholder="Wachtwoord" required>
-        <input type="text" id="nickname" placeholder="Nickname" required>
-        <input type="text" id="school" placeholder="School" required>
-        <input type="text" id="richting" placeholder="Richting" required>
-        <input type="text" id="graad" placeholder="Graad (2e of 3e)" required>
-        <button type="submit">Registreer</button>
-    </form>
+    <main>
+        <h1>Registreren</h1>
+        <form id="registerForm">
+            <input type="text" id="full_name" placeholder="Volledige naam" required>
+            <input type="text" id="nickname" placeholder="Gebruikersnaam" required>
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="password" id="password" placeholder="Wachtwoord" required>
+            <select id="role">
+                <option value="leerling">Leerling</option>
+                <option value="leerkracht">Leerkracht</option>
+            </select>
+            <input type="text" id="school" placeholder="School" required>
+            <input type="text" id="program" placeholder="Richting" required>
+            <input type="text" id="grade" placeholder="Graad (2e of 3e)" required>
+            <button type="submit">Registreren</button>
+        </form>
+        <p id="error-message" style="color: red;"></p>
+        <p>Heb je al een account? <a href="/pages/login.html">Log in</a></p>
+    </main>
     <script src="../scripts/auth.js"></script>
 </body>
 </html>
