@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nieuwe Quiz</title>
+    <title>Nieuwe Quiz Aanmaken</title>
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
+    <div id="header"></div>
+
     <main>
         <h1>Nieuwe Quiz Aanmaken</h1>
         <form id="quizForm">
-            <input type="text" id="titel" placeholder="Titel" required>
-            <select id="moeilijkheidsgraad">
+            <input type="text" id="title" placeholder="Quiz Titel" required>
+            <input type="text" id="course" placeholder="Vak" required>
+            <select id="difficulty">
                 <option value="makkelijk">Makkelijk</option>
                 <option value="gemiddeld">Gemiddeld</option>
                 <option value="moeilijk">Moeilijk</option>
             </select>
-            <input type="text" id="richting" placeholder="Richting" required>
-            <input type="text" id="graad" placeholder="Graad (2e of 3e)" required>
+            <input type="text" id="program" placeholder="Studierichting" required>
+            <input type="text" id="grade" placeholder="Graad (2e of 3e)" required>
 
             <h2>Vragen</h2>
             <div id="vragenContainer"></div>
             <button type="button" onclick="addQuestion()">+ Voeg Vraag Toe</button>
+
             <button type="submit">Quiz Opslaan</button>
         </form>
+        <p id="message"></p>
     </main>
+
+    <div id="footer"></div>
+
+    <script src="../scripts/layout.js"></script>
     <script src="../scripts/teacher_create_quiz.js"></script>
 </body>
 </html>

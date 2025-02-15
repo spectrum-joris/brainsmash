@@ -1,7 +1,8 @@
 import express from "express";
 import { 
     getQuizzesForUser, 
-    getTeacherQuizzes, 
+    getTeacherQuizzes,
+    createQuiz, 
     getQuizQuestions, 
     submitAnswer 
 } from "../controllers/quizController.js";
@@ -14,6 +15,9 @@ router.get("/student", authMiddleware, getQuizzesForUser);
 
 // 🔹 Routes voor leerkrachten (zien enkel hun eigen quizzen)
 router.get("/teacher", authMiddleware, getTeacherQuizzes);
+
+// 🔹 Quiz aanmaken 
+router.post("/", authMiddleware, createQuiz); 
 
 // 🔹 Quizvragen ophalen
 router.get("/:quizId/questions", authMiddleware, getQuizQuestions);

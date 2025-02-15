@@ -5,6 +5,7 @@ const addQuestion = () => {
     const vraagIndex = vragen.length;
     
     const vraagDiv = document.createElement("div");
+    vraagDiv.classList.add("vraag-blok");
     vraagDiv.innerHTML = `
         <input type="text" placeholder="Vraagtekst" id="vraagText${vraagIndex}" required>
         <select id="vraagType${vraagIndex}" onchange="toggleOptions(${vraagIndex})">
@@ -16,8 +17,8 @@ const addQuestion = () => {
             <input type="text" placeholder="Optie 2" id="optie2_${vraagIndex}">
             <input type="text" placeholder="Optie 3" id="optie3_${vraagIndex}">
             <input type="text" placeholder="Optie 4" id="optie4_${vraagIndex}">
-            <input type="text" placeholder="Correct Antwoord" id="correctAnswer${vraagIndex}" required>
         </div>
+        <input type="text" placeholder="Correct Antwoord" id="correctAnswer${vraagIndex}" required>
         <label>Tijdslimiet (s):</label>
         <select id="timeLimit${vraagIndex}">
             <option value="10">10s</option>
@@ -25,10 +26,16 @@ const addQuestion = () => {
             <option value="30">30s</option>
             <option value="60">60s</option>
         </select>
+        <button type="button" onclick="removeQuestion(${vraagIndex})">Verwijder Vraag</button>
     `;
     
     vragenContainer.appendChild(vraagDiv);
     vragen.push({});
+};
+
+const removeQuestion = (index) => {
+    document.querySelector(`#vragenContainer`).children[index].remove();
+    vragen.splice(index, 1);
 };
 
 const submitQuiz = async (event) => {
@@ -47,24 +54,29 @@ const submitQuiz = async (event) => {
         time_limit: document.querySelector(`#timeLimit${index}`).value
     }));
 
-    const res = await fetch("/api/teacher/quizzes", {
+    const quizData = {
+        title: document.querySelector("#title").value,
+        course: document.querySelector("#course").value,
+        difficulty: document.querySelector("#difficulty").value,
+        program: document.querySelector("#program").value,
+        grade: document.querySelector("#grade").value,
+        questions: vragenData
+    };
+
+    const res = await fetch("/api/quizzes", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).access_token}`
         },
-        body: JSON.stringify({
-            titel: document.querySelector("#titel").value,
-            moeilijkheidsgraad: document.querySelector("#moeilijkheidsgraad").value,
-            richting: document.querySelector("#richting").value,
-            graad: document.querySelector("#graad").value,
-            vragen: vragenData
-        })
+        body: JSON.stringify(quizData)
     });
 
     if (res.ok) {
         alert("Quiz succesvol aangemaakt!");
         window.location.href = "teacher_dashboard.html";
+    } else {
+        alert("Fout bij opslaan quiz!");
     }
 };
 

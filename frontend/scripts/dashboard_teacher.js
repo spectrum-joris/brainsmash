@@ -5,13 +5,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     const searchInput = document.querySelector("#search-input");
     const searchButton = document.querySelector("#search-button");
 
+    // ✅ Haal token op uit localStorage
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("❌ Geen token gevonden. Redirect naar login.");
+        window.location.href = "/pages/login.html";
+        return;
+    }
+
     try {
         const res = await fetch("/api/quizzes/teacher", {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // ✅ Token correct meesturen
+            }
         });
 
         const quizzes = await res.json();
+
+        console.log("✅ Debug: Quiz API response:", quizzes);
 
         if (!res.ok) throw new Error(quizzes.error || "Kon quizzen niet ophalen");
 
@@ -22,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         renderQuizList(quizzes);
 
-        // Bereken statistieken
+        // ✅ Bereken statistieken
         const allScores = quizzes.flatMap(quiz => quiz.scores || []);
         const highestScore = allScores.length ? Math.max(...allScores) : 0;
         const totalAttempts = allScores.length;
@@ -30,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         highestScoreElem.textContent = highestScore;
         totalAttemptsElem.textContent = totalAttempts;
 
-        // Zoekfunctie
+        // ✅ Zoekfunctie
         searchButton.addEventListener("click", () => {
             const searchTerm = searchInput.value.toLowerCase();
             const filteredQuizzes = quizzes.filter(quiz =>
@@ -59,11 +72,26 @@ function renderQuizList(quizzes) {
     `).join("");
 }
 
+// ✅ Quiz verwijderen met token in de header
 async function deleteQuiz(quizId) {
     if (!confirm("Weet je zeker dat je deze quiz wilt verwijderen?")) return;
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("❌ Geen token gevonden. Redirect naar login.");
+        window.location.href = "/pages/login.html";
+        return;
+    }
+
     try {
-        const res = await fetch(`/api/quizzes/${quizId}`, { method: "DELETE" });
+        const res = await fetch(`/api/quizzes/${quizId}`, { 
+            method: "DELETE",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // ✅ Token meesturen bij verwijderen
+            }
+        });
+
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.error || "Kon quiz niet verwijderen");

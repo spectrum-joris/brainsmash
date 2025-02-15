@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ✅ Controleer of we op de loginpagina zijn
 const loginForm = document.querySelector("#loginForm");
+
 if (loginForm) {
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -69,23 +70,53 @@ if (loginForm) {
         const errorMessage = document.querySelector("#error-message");
         errorMessage.innerText = ""; // Reset foutmelding
 
-        const res = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: emailField.value,
-                password: passwordField.value
-            })
-        });
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: emailField.value,
+                    password: passwordField.value
+                })
+            });
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (!res.ok) {
-            errorMessage.innerText = data.error; // Toon foutmelding in de UI
-            return;
+            console.log("✅ Debug: Login response:", data);
+
+            if (!res.ok || data.error) {
+                errorMessage.innerText = data.error || "Login mislukt.";
+                return;
+            }
+
+            // ✅ Controleer of `session` en `access_token` bestaan
+            if (!data.session || !data.session.access_token) {
+                console.error("❌ FOUT: Geen geldig session object in response.");
+                errorMessage.innerText = "Authenticatie mislukt. Geen sessie ontvangen.";
+                return;
+            }
+
+            // ✅ Opslaan in localStorage
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", data.session.access_token);
+
+            console.log("✅ Token opgeslagen:", data.session.access_token);
+
+            // ✅ Haal de juiste role op uit `user_metadata`
+            const role = data.user?.user_metadata?.role;
+            console.log("✅ Debug: Gebruikersrol:", role);
+
+            // ✅ Stuur gebruiker naar de juiste pagina
+            if (role === "leerling") {
+                window.location.href = "/pages/dashboard_student.html"; 
+            } else if (role === "leerkracht") {
+                window.location.href = "/pages/dashboard_teacher.html"; 
+            } else {
+                window.location.href = "/pages/dashboard.html"; // Fallback
+            }
+        } catch (error) {
+            console.error("❌ FOUT: Probleem met login request:", error);
+            errorMessage.innerText = "Er is een fout opgetreden bij het inloggen.";
         }
-
-        localStorage.setItem("user", JSON.stringify(data));
-        window.location.href = "/pages/dashboard.html"; // ✅ Correct pad naar dashboard
     });
 };

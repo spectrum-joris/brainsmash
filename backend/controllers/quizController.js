@@ -6,27 +6,98 @@ dotenv.config();
 // const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 export const getQuizzesForUser = async (req, res) => {
-    const { user } = req;
+    const { id, program, grade } = req.user;
 
-    // Haal de graad en richting op van de gebruiker
-    const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("graad, richting")
-        .eq("id", user.id)
-        .single();
+    if (!program || !grade) {
+        return res.status(400).json({ error: "Program of grade niet gevonden in gebruikersprofiel." });
+    }
 
-    if (profileError) return res.status(400).json({ error: profileError.message });
+    console.log(`✅ Gebruiker ${id} zoekt quizzen voor program: ${program}, grade: ${grade}`);
 
-    // Haal quizzen op die matchen met deze gebruiker
+    // ✅ Haal quizzen op die matchen met de opleiding en graad van de gebruiker
     const { data: quizzes, error: quizError } = await supabase
         .from("quizzes")
         .select("*")
-        .eq("graad", profile.graad)
-        .eq("richting", profile.richting);
+        .eq("program", program) // ✅ Match met program
+        .eq("grade", grade); // ✅ Match met grade
 
-    if (quizError) return res.status(500).json({ error: quizError.message });
+    if (quizError) {
+        console.error("❌ Fout bij ophalen quizzen:", quizError.message);
+        return res.status(500).json({ error: "Fout bij ophalen quizzen." });
+    }
+
+    if (!quizzes || quizzes.length === 0) {
+        return res.status(200).json([]); // ✅ Lege array als er geen quizzen zijn
+    }
 
     res.status(200).json(quizzes);
+};
+
+export const getTeacherQuizzes = async (req, res) => {
+    const { user } = req;
+
+    // Controleer of de gebruiker een leerkracht is
+    const { data: profile, error: profileError } = await supabase
+        .from("users")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+    if (profileError || profile.role !== "leerkracht") {
+        return res.status(403).json({ error: "Toegang geweigerd" });
+    }
+
+    // Haal quizzen op die door deze leerkracht zijn aangemaakt
+    const { data: quizzes, error: quizError } = await supabase
+        .from("quizzes")
+        .select("id, title, course, difficulty, program, grade, created_at")
+        .eq("teacher_id", user.id)
+        .order("created_at", { ascending: false });
+
+    if (quizError) {
+        console.error("❌ Fout bij ophalen quizzen:", quizError.message);
+        return res.status(500).json({ error: "Kon quizzen niet ophalen." });
+    }
+
+    res.status(200).json(quizzes);
+};
+
+export const createQuiz = async (req, res) => {
+    const { user } = req;
+    const { title, course, difficulty, program, grade, questions } = req.body;
+
+    if (!title || !course || !difficulty || !program || !grade || !questions.length) {
+        return res.status(400).json({ error: "Alle velden en minstens één vraag zijn verplicht." });
+    }
+
+    // Quiz aanmaken
+    const { data: quiz, error: quizError } = await supabase
+        .from("quizzes")
+        .insert([{ teacher_id: user.id, title, course, difficulty, program, grade }])
+        .select()
+        .single();
+
+    if (quizError) {
+        return res.status(500).json({ error: "Kon quiz niet aanmaken." });
+    }
+
+    // Vragen toevoegen
+    const vragenData = questions.map(q => ({
+        quiz_id: quiz.id,
+        question_text: q.question_text,
+        type: q.type,
+        options: q.options.length ? JSON.stringify(q.options) : null,
+        correct_answers: JSON.stringify(q.correct_answers),
+        time_limit: q.time_limit
+    }));
+
+    const { error: vraagError } = await supabase.from("questions").insert(vragenData);
+
+    if (vraagError) {
+        return res.status(500).json({ error: "Kon vragen niet opslaan." });
+    }
+
+    res.status(201).json({ message: "Quiz succesvol aangemaakt!" });
 };
 
 // 🔹 Vragen van een quiz ophalen

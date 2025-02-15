@@ -1,13 +1,26 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const quizList = document.querySelector("#quiz-list");
 
+    // ✅ Haal token op uit localStorage
+    const token = localStorage.getItem("token");
+    if (!token) {
+        console.error("❌ Geen token gevonden. Redirect naar login.");
+        window.location.href = "/pages/login.html";
+        return;
+    }
+
     try {
         const res = await fetch("/api/quizzes/student", {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // ✅ Stuur het token mee
+            }
         });
 
         const quizzes = await res.json();
+
+        console.log("✅ Debug: Quiz API response:", quizzes);
 
         if (!res.ok) throw new Error(quizzes.error || "Kon quizzen niet ophalen");
 
@@ -26,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         `).join("");
 
     } catch (error) {
-        console.error("❌ Fout bij ophalen quizzen:", error.message);
+        console.error("❌ Fout bij ophalen quizzen:", error);
         quizList.innerHTML = `<p class="error">Fout bij ophalen quizzen. Probeer later opnieuw.</p>`;
     }
 });
