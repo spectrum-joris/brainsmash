@@ -1,13 +1,19 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const quizList = document.querySelector("#quiz-list");
 
-    // ✅ Haal token op uit localStorage
-    const token = localStorage.getItem("token");
+    // ✅ Haal token op en vernieuw indien nodig
+    const { data, error } = await supabase.auth.refreshSession();
+
+    const token = data.session?.access_token || localStorage.getItem("token");
+
     if (!token) {
         console.error("❌ Geen token gevonden. Redirect naar login.");
         window.location.href = "/pages/login.html";
         return;
     }
+
+    console.log("📌 Debug: Ophalen quizzes gestart");
+    console.log("🔑 Gebruikerstoken:", token);
 
     try {
         const res = await fetch("/api/quizzes/student", {

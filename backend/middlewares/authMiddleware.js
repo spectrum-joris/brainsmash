@@ -15,6 +15,7 @@ const authMiddleware = async (req, res, next) => {
 
         const token = authHeader.split(" ")[1];
         console.log("🔍 Ontvangen token:", token); // 🔹 Debug: Token check
+        supabase.auth.setAuth(token); // 🔥 Forceer Supabase om het juiste token te gebruiken!
 
 
         // ✅ Stap 1: Haal gebruiker op uit Supabase Auth

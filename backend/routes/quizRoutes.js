@@ -1,6 +1,6 @@
 import express from "express";
 import { 
-    getQuizzesForUser, 
+    getQuizzesForStudent, 
     getTeacherQuizzes,
     createQuiz, 
     getQuizQuestions, 
@@ -11,7 +11,7 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 // 🔹 Routes voor leerlingen (zien alleen quizzen die relevant zijn voor hun richting)
-router.get("/student", authMiddleware, getQuizzesForUser);
+router.get("/student", authMiddleware, getQuizzesForStudent);
 
 // 🔹 Routes voor leerkrachten (zien enkel hun eigen quizzen)
 router.get("/teacher", authMiddleware, getTeacherQuizzes);

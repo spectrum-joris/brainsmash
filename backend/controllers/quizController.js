@@ -5,32 +5,38 @@ dotenv.config();
 
 // const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-export const getQuizzesForUser = async (req, res) => {
-    const { id, program, grade } = req.user;
+export const getQuizzesForStudent = async (req, res) => {
+    const { student_id } = req.params;
 
-    if (!program || !grade) {
-        return res.status(400).json({ error: "Program of grade niet gevonden in gebruikersprofiel." });
+    try {
+        // ✅ Zoek de richting van de student op
+        const { data: studentData, error: studentError } = await supabase
+            .from("users")
+            .select("program_id")
+            .eq("id", student_id)
+            .single();
+
+        if (studentError || !studentData) {
+            return res.status(400).json({ error: "Leerling niet gevonden." });
+        }
+        const program_id = studentData.program_id;
+
+        // ✅ Zoek alle quizzes voor die richting
+        const { data: quizzes, error: quizError } = await supabase
+            .from("quizzes")
+            .select("*")
+            .eq("program_id", program_id);
+
+        if (quizError) {
+            return res.status(400).json({ error: quizError.message });
+        }
+
+        res.status(200).json(quizzes);
+
+    } catch (err) {
+        console.error("❌ Fout bij ophalen quizzes:", err);
+        res.status(500).json({ error: "Interne serverfout" });
     }
-
-    console.log(`✅ Gebruiker ${id} zoekt quizzen voor program: ${program}, grade: ${grade}`);
-
-    // ✅ Haal quizzen op die matchen met de opleiding en graad van de gebruiker
-    const { data: quizzes, error: quizError } = await supabase
-        .from("quizzes")
-        .select("*")
-        .eq("program", program) // ✅ Match met program
-        .eq("grade", grade); // ✅ Match met grade
-
-    if (quizError) {
-        console.error("❌ Fout bij ophalen quizzen:", quizError.message);
-        return res.status(500).json({ error: "Fout bij ophalen quizzen." });
-    }
-
-    if (!quizzes || quizzes.length === 0) {
-        return res.status(200).json([]); // ✅ Lege array als er geen quizzen zijn
-    }
-
-    res.status(200).json(quizzes);
 };
 
 export const getTeacherQuizzes = async (req, res) => {
