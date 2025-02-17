@@ -14,6 +14,8 @@ const authMiddleware = async (req, res, next) => {
         }
 
         const token = authHeader.split(" ")[1];
+        console.log("🔍 Ontvangen token:", token); // 🔹 Debug: Token check
+
 
         // ✅ Stap 1: Haal gebruiker op uit Supabase Auth
         const { data: { user }, error: userError } = await supabase.auth.getUser(token);
@@ -26,10 +28,12 @@ const authMiddleware = async (req, res, next) => {
 
         // ✅ Stap 2: Haal de gebruikersrol op uit `public.users`
         const { data: userData, error: userDataError } = await supabase
-            .from("users") // Zorg dat je de juiste schema gebruikt
+            .from("users") 
             .select("id, role, program, grade")
             .eq("id", user.id)
             .single();
+
+            console.log("🔍 Opgehaalde userData:", userData);
 
         if (userDataError || !userData) {
             console.warn("⚠️ Geen profiel gevonden in de 'users' tabel voor user:", user.id);

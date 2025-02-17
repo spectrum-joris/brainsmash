@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "Authorization": `Bearer ${token}` // ✅ Stuur het token mee
             }
         });
+        
+        console.log("Token:", token);
 
         const quizzes = await res.json();
 
