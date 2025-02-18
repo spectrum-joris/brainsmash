@@ -73,6 +73,8 @@ async function fetchScholen() {
         const selectElement = document.getElementById("school");
         if (!selectElement) return console.error("❌ FOUT: Element #school niet gevonden!");
 
+        data.sort((a, b) => a.school_name.localeCompare(b.school_name))
+
         data.forEach((school) => {
             const option = document.createElement("option");
             option.value = school.id;
@@ -94,6 +96,8 @@ async function fetchGraden() {
         const selectElement = document.getElementById("grade");
         if (!selectElement) return console.error("❌ FOUT: Element #grade niet gevonden!");
 
+        data.sort((a, b) => a.grade_name.localeCompare(b.grade_name))
+
         data.forEach((grade) => {
             const option = document.createElement("option");
             option.value = grade.id;
@@ -114,6 +118,8 @@ async function fetchRichtingen() {
 
         const selectElement = document.getElementById("program");
         if (!selectElement) return console.error("❌ FOUT: Element #program niet gevonden!");
+
+        data.sort((a, b) => a.program_name.localeCompare(b.program_name))
 
         data.forEach((program) => {
             const option = document.createElement("option");
