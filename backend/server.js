@@ -25,6 +25,7 @@ app.use(express.json());
 // **Statische bestanden correct serveren**
 app.use(express.static(path.join(__dirname, "../frontend")));
 
+
 // **Gebruik de routes**
 app.use("/", frontendRoutes);
 app.use("/api/auth", authRoutes);

@@ -1,8 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
+// import { createClient } from "@supabase/supabase-js";
+import supabase from "../utilities/db.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+// const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 // ✅ Middleware om gebruiker en rol op te halen
 const authMiddleware = async (req, res, next) => {

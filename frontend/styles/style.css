@@ -1,30 +1,31 @@
-.quiz-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+:root {
+    /* Font Families */
+    --text-font: 'Poppins', sans-serif;
+    --title-font: 'Figtree', sans-serif;
+    --game-font: 'Press Start 2P', cursive;
+    /* Font Sizes */
+    --font-size-text: 0.8rem;
+    --font-size-title: 1rem;
+    --font-size-gamification: 0.4rem;
+    /* Line Heights */
+    --line-height-title: 1.2rem;
+    --line-height-gamification: 1rem;
+    /* Colors */
+    --primary-bg: #111; /* te corrigeren */
+    --form-bg: #6A0DAD;
+    --input-bg: #2C3E50;
+    --input-text: #fff;
+    --button-bg: #5A5D9F;
+    --button-text: white; /* gecorrigeerd */
+    --error-color: red; /* gecorrigeerd */
 }
-
-.quiz-card h3 {
-    margin: 0 0 10px;
-}
-
-.quiz-card button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.quiz-card button:hover {
-    background-color: #0056b3;
-}
-
-.error {
-    color: red;
-    font-weight: bold;
+body {
+    /* background-color: var(--primary-bg); */
+    font-family: var(--text-font); /* gecorrigeerd */
+    display: flex;
+    flex-direction: column; /* gecorrigeerd */
+    justify-content: space-between; /* gecorrigeerd */
+    align-items: flex-start; /* gecorrigeerd */
+    height: 100vh;
+    margin: 0;
 }
