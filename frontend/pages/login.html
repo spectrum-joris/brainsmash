@@ -13,14 +13,18 @@
 </head>
 <body>
     <main>
-        <h1>Inloggen</h1>
+        <div class="auth__header">
+            <h1>Inloggen</h1>
+        </div>
         <form id="loginForm">
             <input type="email" id="email" placeholder="E-mail" required>
             <input type="password" id="password" placeholder="Wachtwoord" required>
             <button type="submit">Inloggen</button>
         </form>
-        <p id="error-message" style="color: red;"></p>
-        <p>Heb je nog geen account? <a href="/pages/register.html">Registreer hier</a></p>
+        <div class="auth__footer">
+            <p id="error-message" style="color: red;"></p>
+            <p>Heb je nog geen account? <a href="/pages/register.html">Registreer hier</a></p>
+        </div>
     </main>
     <script src="../scripts/login.js"></script>
 </body>

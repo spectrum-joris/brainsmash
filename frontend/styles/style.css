@@ -1,31 +1,130 @@
 :root {
     /* Font Families */
     --text-font: 'Poppins', sans-serif;
-    --title-font: 'Figtree', sans-serif;
+    --title-font: 'Figtree', sans-serif bold;
     --game-font: 'Press Start 2P', cursive;
     /* Font Sizes */
     --font-size-text: 0.8rem;
-    --font-size-title: 1rem;
+    --font-size-title: 2rem;
     --font-size-gamification: 0.4rem;
     /* Line Heights */
     --line-height-title: 1.2rem;
     --line-height-gamification: 1rem;
-    /* Colors */
-    --primary-bg: #111; /* te corrigeren */
-    --form-bg: #6A0DAD;
-    --input-bg: #2C3E50;
-    --input-text: #fff;
+     /* Colors */
+    --primary-bg: #6A0DAD;
+    --primary-text: #fff;
+    --form-bg: #2C3E50;
+    --input-bg: #CAD9FF;
+    --input-text: rgb(94, 92, 92);
     --button-bg: #5A5D9F;
-    --button-text: white; /* gecorrigeerd */
-    --error-color: red; /* gecorrigeerd */
+    --button-text: white;
+    --error-color: red;
+    /* Spacing */
+    --border-radius: 5px;
+    --padding: 10px;
+    --margin: 10px;
 }
+
+h1 {
+    font-family: var(--title-font);
+    font-size: var(--font-size-title);
+}
+
 body {
-    /* background-color: var(--primary-bg); */
-    font-family: var(--text-font); /* gecorrigeerd */
+    background-color: var(--primary-bg);
+    font-family: var(--text-font);
     display: flex;
-    flex-direction: column; /* gecorrigeerd */
-    justify-content: space-between; /* gecorrigeerd */
-    align-items: flex-start; /* gecorrigeerd */
-    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     margin: 0;
+    height: 100vh;
+}
+
+main {
+    background-color: var(--form-bg);
+    color: var(--primary-text);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+input {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    font-size: var(--font-size-text);
+    padding: var(--padding);
+    border: none;
+    border-radius: var(--border-radius);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: var(--margin);
+}
+
+form select {
+    width: 100%;
+    margin: var(--margin);
+}
+
+.auth__container {
+    background-color: var(--form-bg);
+    padding: var(--padding);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.auth__header {
+    font-family: var(--title-font);
+    font-size: var(--font-size-title);
+    color: white;
+    margin-bottom: 20px;
+}
+
+#registerForm,
+#loginForm {
+    background-color: var(--form-bg);
+    padding: var(--padding);
+    border-radius: 8px;
+    text-align: left;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: var(--padding);
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+}
+
+input::placeholder {
+    color: var(--input-text);
+}
+
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.auth__footer {
+    font-size: var(--font-size-text);
+    color: rgb(171, 208, 223);
+    margin-top: 10px;
+}
+
+form #error-message {
+    color: var(--error-color);
+    font-size: 0.7rem;
 }

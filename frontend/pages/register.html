@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <main>
-        <h1>Registreren</h1>
+    <main class="auth__container">
+        <div class="auth__header">
+            <h1>Registreren</h1>
+        </div>
         <form id="registerForm">
             <input type="text" id="full_name" placeholder="Volledige naam" required>
             <input type="text" id="nickname" placeholder="Gebruikersnaam" required>
@@ -39,8 +41,10 @@
 
             <button type="submit">Registreren</button>
         </form>
-        <p id="error-message" style="color: red;"></p>
-        <p>Heb je al een account? <a href="/pages/login.html">Log in</a></p>
+        <div class="auth__footer">
+            <p id="error-message" style="color: red;"></p>
+            <p>Heb je al een account? <a href="/pages/login.html">Log in</a></p>
+        </div>
     </main>
     <script src="../scripts/register.js"></script>
 </body>
