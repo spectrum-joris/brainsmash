@@ -6,7 +6,7 @@ dotenv.config();
 // const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 export const getQuizzesForStudent = async (req, res) => {
-    const { student_id } = req.params;
+    const student_id = req.user.id;
 
     try {
         // ✅ Zoek de richting van de student op
@@ -70,40 +70,41 @@ export const getTeacherQuizzes = async (req, res) => {
 
 export const createQuiz = async (req, res) => {
     const { user } = req;
-    const { title, course, difficulty, program, grade, questions } = req.body;
+    const { title, subject_id, difficulty, program_id, grade_id, questions } = req.body;
 
-    if (!title || !course || !difficulty || !program || !grade || !questions.length) {
-        return res.status(400).json({ error: "Alle velden en minstens één vraag zijn verplicht." });
+    if (!title || !subject_id || !difficulty || !program_id || !grade_id || questions.length !== 10) {
+        return res.status(400).json({ error: "Alle velden en precies 10 vragen zijn verplicht." });
     }
 
-    // Quiz aanmaken
-    const { data: quiz, error: quizError } = await supabase
-        .from("quizzes")
-        .insert([{ teacher_id: user.id, title, course, difficulty, program, grade }])
-        .select()
-        .single();
+    try {
+        // ✅ Quiz opslaan in de database
+        const { data: quiz, error: quizError } = await supabase
+            .from("quizzes")
+            .insert([{ teacher_id: user.id, title, subject_id, difficulty, program_id, grade_id }])
+            .select()
+            .single();
 
-    if (quizError) {
-        return res.status(500).json({ error: "Kon quiz niet aanmaken." });
+        if (quizError) throw quizError;
+
+        // ✅ Vragen opslaan
+        const vragenData = questions.map(q => ({
+            quiz_id: quiz.id,
+            question_text: q.question_text,
+            type: q.type,
+            options: q.options ? q.options : null,
+            correct_answers: `{${q.correct_answers.map(ans => `"${ans}"`).join(",")}}`, // ✅ PostgreSQL formaat: {“antwoord1”, “antwoord2”} ipv [] json array
+            time_limit: q.time_limit
+        }));
+
+        const { error: vragenError } = await supabase.from("questions").insert(vragenData);
+
+        if (vragenError) throw vragenError;
+
+        res.status(201).json({ message: "Quiz succesvol aangemaakt!" });
+    } catch (err) {
+        console.error("❌ Fout bij aanmaken quiz:", err);
+        res.status(500).json({ error: "Er is een fout opgetreden bij het opslaan van de quiz." });
     }
-
-    // Vragen toevoegen
-    const vragenData = questions.map(q => ({
-        quiz_id: quiz.id,
-        question_text: q.question_text,
-        type: q.type,
-        options: q.options.length ? JSON.stringify(q.options) : null,
-        correct_answers: JSON.stringify(q.correct_answers),
-        time_limit: q.time_limit
-    }));
-
-    const { error: vraagError } = await supabase.from("questions").insert(vragenData);
-
-    if (vraagError) {
-        return res.status(500).json({ error: "Kon vragen niet opslaan." });
-    }
-
-    res.status(201).json({ message: "Quiz succesvol aangemaakt!" });
 };
 
 // 🔹 Vragen van een quiz ophalen

@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const quizList = document.querySelector("#quiz-list");
 
-    // ✅ Haal token op en vernieuw indien nodig
-    const { data, error } = await supabase.auth.refreshSession();
-
-    const token = data.session?.access_token || localStorage.getItem("token");
+    // Haal het token uit localStorage
+    const token = localStorage.getItem("token");
 
     if (!token) {
         console.error("❌ Geen token gevonden. Redirect naar login.");
@@ -20,14 +18,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             method: "GET",
             headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}` // ✅ Stuur het token mee
+                "Authorization": `Bearer ${token}`
             }
         });
-        
-        console.log("Token:", token);
 
         const quizzes = await res.json();
-
         console.log("✅ Debug: Quiz API response:", quizzes);
 
         if (!res.ok) throw new Error(quizzes.error || "Kon quizzen niet ophalen");

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijn Profiel - Leerling</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <div id="header"></div>
+    <main class="profile">
+        <h1 class="profile__title">Mijn Profiel</h1>
+        
+        <div class="profile__avatar">
+        <img id="avatar" class="profile__avatar-image" src="../public/icons/person.svg" alt="Avatar">
+        <input type="file" id="avatarUpload" class="profile__avatar-input">
+        <button id="uploadBtn" class="profile__avatar-button">Profielfoto wijzigen</button>
+        </div>
+        
+        <div class="profile__info">
+        <h2 id="nickname" class="profile__nickname">Leerling</h2>
+        <p class="profile__detail"><strong>Email:</strong> <span id="email"></span></p>
+        <p class="profile__detail"><strong>School:</strong> <span id="school"></span></p>
+        <p class="profile__detail"><strong>Richting:</strong> <span id="richting"></span></p>
+        <p class="profile__detail"><strong>Graad:</strong> <span id="grade"></span></p>
+        </div>
+        
+        <section class="profile__stats">
+        <h2 class="profile__stats-title">Quiz Statistieken</h2>
+        <p class="profile__stat">
+            <strong>Aantal vervolledigde quizzen:</strong>
+            <span id="completedQuizzes"></span>
+        </p>
+        <p class="profile__stat">
+            <strong>Aantal attempts:</strong>
+            <span id="totalAttempts"></span>
+        </p>
+        <p class="profile__stat">
+            <strong>Gemiddelde score:</strong>
+            <span id="avgScore"></span>
+        </p>
+        <p class="profile__stat">
+            <strong>Beste score:</strong>
+            <span id="bestScore"></span>
+        </p>
+        <p class="profile__stat">
+            <strong>Huidige ranking:</strong>
+            <span id="currentRanking"></span>
+        </p>
+        <p class="profile__stat">
+            <strong>XP punten:</strong>
+            <span id="xpPoints"></span>
+        </p>
+        <p class="profile__stat">
+            <strong>Qbits:</strong>
+            <span id="qbits"></span>
+        </p>
+        </section>
+    </main>
+    <div id="footer"></div>
+    <script src="../scripts/layout.js" type="module"></script>
+    <script src="../scripts/profile_student.js" type="module"></script>
+</body>
+</html>

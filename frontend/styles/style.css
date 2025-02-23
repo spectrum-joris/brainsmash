@@ -1,30 +1,198 @@
-.quiz-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+:root {
+    /* Font Families */
+    --text-font: 'Poppins', sans-serif;
+    --title-font: 'Figtree', sans-serif bold;
+    --game-font: 'Press Start 2P', cursive;
+    /* Font Sizes */
+    --font-size-text: 0.8rem;
+    --font-size-title: 2rem;
+    --font-size-gamification: 0.4rem;
+    /* Line Heights */
+    --line-height-title: 1.2rem;
+    --line-height-gamification: 1rem;
+     /* Colors */
+    --error-color: red;
+    --auth: rgb(171, 208, 223);
+    --auth-header: rgb(255, 255, 255);
+    --dark_blue: #691ADB;
+    --Yellow: #FFE856;
+    --green: #30C474;
+    --purple: #AE44F5;
+    --blue_500: #6184D8;
+    --dark_blue_400: #7B2AEF ;
+    --dark_blue_300: #8E44F8 ;
+    --dark_blue_200: #A261FF ;
+    --dark_blue_600: #590FC2 ;
+    --dark_blue_700: #121668 ;
+    --dark_blue_800: #39008A ;
+    --Yellow_400: #FFEC74 ;
+    --Yellow_300: #FFF091 ;
+    --Yellow_200: #FFF3A4 ;
+    --Yellow_600: #FFDA44 ;
+    --Yellow_700: #FAD024 ;
+    --Yellow_800: #F5C400 ;
+    --green_400: #47D286 ;
+    --green_300: #63D999 ;
+    --green_200: #80E0AC ;
+    --green_600: #29A863 ;
+    --green_700: #228B52 ;
+    --green_800: #1B6F41 ;
+    --purple_200: #ECCFFF ;
+    --purple_300: #CF86FF ;
+    --purple_400: #B559F3 ;
+    --purple_600: #9B3CEA ;
+    --purple_700: #8231C5 ;
+    --purple_800: #612296 ;
+    --Blue_200: #CAD9FF ;
+    --Blue_300: #A6C0FF ;
+    --Blue_400: #7BA2FF ;
+    --Blue_600: #5775BE ;
+    --Blue_700: #4B65A5 ;
+    --Blue_800: #3C5184 ;
+    /* Spacing 1rem=16px*/
+    /* padding */
+    --padding_xs: 0.5rem;
+    --padding_s: 1rem;
+    --padding_m: 1.5rem;
+    --padding_l: 2rem;
+    --padding_xl: 3rem;
+    --padding_xxl: 4rem;
+    /* margin */
+    --margin_xs: 0.5rem;
+    --margin_s: 1rem;
+    --margin_m: 1.5rem;
+    --margin_l: 2rem;
+    --margin_xl: 3rem;
+    --margin_xxl: 4rem;
+    /* border-radius */
+    --border-radius_small: 0.313rem;
+    --border-radius_medium: 0.5rem;
+    --border-radius_large: 0.625rem;
 }
-
-.quiz-card h3 {
-    margin: 0 0 10px;
+h1 {
+    font-family: var(--title-font);
+    font-size: var(--font-size-title);
 }
-
-.quiz-card button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    background-color: #007BFF;
-    color: white;
+body {
+    background-color: var(--Blue_600);
+    font-family: var(--text-font);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0;
+    height: 100vh;
+}
+header {
+    background-color: var(--Blue_800);
+    color: var(--auth-header);
+    text-align: center;
+    padding: var(--padding_m);
+    border-radius: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    position: fixed;
+    height: var(--line-height-title);
+    font-family: var(--title-font);
+    font-size: var(--font-size-title);
+    color: var(--Blue_200);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+main {
+    background-color: var(--Blue_800);
+    font-family: var(--text-font);
+    color: var(--Blue_800);
+    padding: var(--padding_m);
+    border-radius: var(--border-radius_small);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 25rem;
+    margin: auto;
+}
+main p {
+    color: var(--Blue_200);
+}
+main p a {
+    color: var(--green_400);
+    text-decoration: none;
+}
+main p a:hover {
+    color: var(--green_600);
+}
+input {
+    background-color: var(--Blue_200);
+    color: var(--Blue_800);
+    font-family: var(--text-font);
+    font-size: var(--font-size-text);
+    padding: var(--padding_xs);
     border: none;
-    border-radius: 3px;
+    border-radius: var(--border-radius_small);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: var(--margin_xs);
+}
+form select {
+    width: 100%;
+    font-family: var(--text-font);
+    margin: var(--margin_xs);
+}
+.auth__header {
+    font-family: var(--title-font);
+    font-size: var(--font-size-title);
+    color: var(--auth-header);
+    margin-bottom: var(--margin_m);
+}
+#registerForm,
+#loginForm {
+    background-color: var(--blue);
+    padding: var(--padding_xs);
+    border-radius: var(--border-radius_medium);
+    text-align: left;
+}
+form input,
+form select {
+    width: 100%;
+    padding: var(--padding_xs);
+    margin: var(--margin_xs) 0;
+    border-radius: var(--border-radius_small);
+    background-color: var(--Blue_200);
+    color: var(--Blue_800);
+}
+input::placeholder {
+    color: var(--Blue_800);
+}
+button {
+    background-color: var(--dark_blue_700);
+    font-family: var(--text-font);
+    color: var(--auth-header);
+    padding: var(--padding_xs);
+    border-radius: var(--border-radius_small);
     cursor: pointer;
+    width: 100%;
+    margin-top: var(--margin_xs);
+}
+.auth__footer {
+    font-size: var(--font-size-text);
+    color: var(--auth);
+    margin-top: var(--margin_xs);
+}
+form #error-message {
+    color: var(--error-color);
+    font-size: var(--font-size-text);
 }
 
-.quiz-card button:hover {
-    background-color: #0056b3;
-}
-
-.error {
-    color: red;
-    font-weight: bold;
+#logo_brainsmash{
+    width: 50px;
+    height: 40px;
+    background-image: url("../public/assets/visuals/adaptive-icon.png");
+    background-size: cover;
+    display: block;
+    margin-right: var(--margin_l);
 }

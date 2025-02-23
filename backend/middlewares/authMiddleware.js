@@ -15,7 +15,6 @@ const authMiddleware = async (req, res, next) => {
 
         const token = authHeader.split(" ")[1];
         console.log("🔍 Ontvangen token:", token); // 🔹 Debug: Token check
-        supabase.auth.setAuth(token); // 🔥 Forceer Supabase om het juiste token te gebruiken!
 
 
         // ✅ Stap 1: Haal gebruiker op uit Supabase Auth
@@ -30,7 +29,7 @@ const authMiddleware = async (req, res, next) => {
         // ✅ Stap 2: Haal de gebruikersrol op uit `public.users`
         const { data: userData, error: userDataError } = await supabase
             .from("users") 
-            .select("id, role, program, grade")
+            .select("id, role, program_id, grade_id")
             .eq("id", user.id)
             .single();
 
@@ -43,10 +42,10 @@ const authMiddleware = async (req, res, next) => {
 
         console.log("✅ Gebruikersprofiel gevonden in public.users:", userData.id);
         console.log("✅ Gebruikersrol:", userData.role);
-        console.log("✅ Program:", userData.program, "| Grade:", userData.grade);
+        console.log("✅ Program:", userData.program_id, "| Grade:", userData.grade_id);
 
         // ✅ Stap 3: Sla de gebruiker en zijn rol op in de request en ga door naar de volgende middleware
-        req.user = { id: user.id, role: userData.role, program: userData.program, grade: userData.grade };
+        req.user = { id: user.id, role: userData.role, program: userData.program_id, grade: userData.grade_id };
         next();
 
     } catch (err) {

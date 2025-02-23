@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
+    <div id="header"></div>
     <main>
         <h1>Mijn Profiel</h1>
-        <img id="avatar" src="../public/default-avatar.png" alt="Avatar">
+        <img id="avatar" src="../public/icons/person.svg" alt="Avatar">
         <input type="file" id="avatarUpload">
         <button id="uploadBtn">Profielfoto wijzigen</button>
         <h2 id="nickname">Leerkracht</h2>
         <p><strong>Email:</strong> <span id="email"></span></p>
         <p><strong>School:</strong> <span id="school"></span></p>
-        <p><strong>Richting:</strong> <span id="richting"></span></p>
+        <p><strong>Richting:</strong> <span id="program"></span></p>
 
         <h2>Quiz Statistieken</h2>
         <p><strong>Aantal aangemaakte quizzen:</strong> <span id="totalQuizzes"></span></p>
@@ -23,6 +24,8 @@
         <p><strong>Gemiddelde score:</strong> <span id="avgScore"></span></p>
         <p><strong>Best presterende quiz:</strong> <span id="bestQuiz"></span></p>
     </main>
-    <script src="../scripts/teacher_profile.js"></script>
+    <div id="footer"></div>
+    <script src="../scripts/layout.js" type="module"></script>
+    <script src="../scripts/profile_teacher.js"></script>
 </body>
 </html>

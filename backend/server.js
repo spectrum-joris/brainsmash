@@ -7,7 +7,9 @@ import authRoutes from "./routes/authRoutes.js";
 import databaseRoutes from "./routes/databaseRoutes.js";
 import frontendRoutes from "./routes/frontendRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
-import profileRoutes from "./routes/profileRoutes.js";
+import dropdownRoutes from "./routes/dropdownRoutes.js";
+import studentProfileRoutes from "./routes/studentProfileRoutes.js";
+import teacherProfileRoutes from "./routes/teacherProfileRoutes.js";
 
 // nodig voor __dirname in ES modules ; we gebruiken __dirname in de server.js file om de frontend te serveren (anders moeten we live server op index.html gebruiken)
 import path from "path";
@@ -27,10 +29,13 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 
 // **Gebruik de routes**
 app.use("/", frontendRoutes);
+app.use("/api", dropdownRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/database", databaseRoutes); 
 app.use("/api/quizzes", quizRoutes);
-app.use("/api/profile", profileRoutes);
+// app.use("/api/profile", profileRoutes);
+app.use("/api/student/profile", studentProfileRoutes);
+app.use("/api/teacher/profile", teacherProfileRoutes);
 
 // **Catch-all route om 404 te voorkomen en alles naar index.html te leiden**
 app.get("*", (req, res) => {

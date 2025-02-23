@@ -13,14 +13,22 @@
         <h1>Nieuwe Quiz Aanmaken</h1>
         <form id="quizForm">
             <input type="text" id="title" placeholder="Quiz Titel" required>
-            <input type="text" id="course" placeholder="Vak" required>
             <select id="difficulty">
                 <option value="makkelijk">Makkelijk</option>
                 <option value="gemiddeld">Gemiddeld</option>
                 <option value="moeilijk">Moeilijk</option>
             </select>
-            <input type="text" id="program" placeholder="Studierichting" required>
-            <input type="text" id="grade" placeholder="Graad (2e of 3e)" required>
+            <select id="course" required>
+                <option value="">Vakken worden geladen...</option>
+            </select>
+            
+            <select id="program" required>
+                <option value="">Studierichtingen worden geladen...</option>
+            </select>
+            
+            <select id="grade" required>
+                <option value="">Graden worden geladen...</option>
+            </select>
 
             <h2>Vragen</h2>
             <div id="vragenContainer"></div>

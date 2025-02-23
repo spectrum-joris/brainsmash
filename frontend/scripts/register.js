@@ -28,6 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            if (role === "leerkracht" && !email.endsWith('@onderwijs.gent.be')) {
+                const errorMessageDiv = document.getElementById("error-message");
+                if (errorMessageDiv) {
+                    errorMessageDiv.textContent = "Leerkrachten moeten een e-mailadres van onderwijs Gent gebruiken (@onderwijs.gent.be).";
+                    errorMessageDiv.style.display = "block";
+                }
+                return;
+            }
+
             // ✅ Stuur de data naar de backend
             try {
                 const res = await fetch("/api/auth/register", {
@@ -63,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// ✅ Haal de scholen op via de backend
+// ✅ Haal de scholen op en sorteer alfabetisch
 async function fetchScholen() {
     try {
         const res = await fetch("/api/database/schools");
@@ -72,6 +81,9 @@ async function fetchScholen() {
         
         const selectElement = document.getElementById("school");
         if (!selectElement) return console.error("❌ FOUT: Element #school niet gevonden!");
+
+        // Sorteer alfabetisch op school_name
+        data.sort((a, b) => a.school_name.localeCompare(b.school_name, 'nl', { sensitivity: 'base' }));
 
         data.forEach((school) => {
             const option = document.createElement("option");
@@ -84,7 +96,7 @@ async function fetchScholen() {
     }
 }
 
-// ✅ Haal de graden op via de backend
+// ✅ Haal de graden op en sorteer alfabetisch
 async function fetchGraden() {
     try {
         const res = await fetch("/api/database/grades");
@@ -93,6 +105,9 @@ async function fetchGraden() {
 
         const selectElement = document.getElementById("grade");
         if (!selectElement) return console.error("❌ FOUT: Element #grade niet gevonden!");
+
+        // Sorteer alfabetisch op grade_name
+        data.sort((a, b) => a.grade_name.localeCompare(b.grade_name, 'nl', { sensitivity: 'base' }));
 
         data.forEach((grade) => {
             const option = document.createElement("option");
@@ -105,7 +120,7 @@ async function fetchGraden() {
     }
 }
 
-// ✅ Haal de richtingen op via de backend
+// ✅ Haal de richtingen op en sorteer alfabetisch
 async function fetchRichtingen() {
     try {
         const res = await fetch("/api/database/programs");
@@ -114,6 +129,9 @@ async function fetchRichtingen() {
 
         const selectElement = document.getElementById("program");
         if (!selectElement) return console.error("❌ FOUT: Element #program niet gevonden!");
+
+        // Sorteer alfabetisch op program_name
+        data.sort((a, b) => a.program_name.localeCompare(b.program_name, 'nl', { sensitivity: 'base' }));
 
         data.forEach((program) => {
             const option = document.createElement("option");
@@ -125,3 +143,4 @@ async function fetchRichtingen() {
         console.error("❌ FOUT bij het ophalen van richtingen:", error);
     }
 }
+
