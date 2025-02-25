@@ -72,10 +72,7 @@
     --border-radius_medium: 0.5rem;
     --border-radius_large: 0.625rem;
 }
-h1 {
-    font-family: var(--title-font);
-    font-size: var(--font-size-title);
-}
+
 body {
     background-color: var(--Blue_600);
     font-family: var(--text-font);
@@ -86,6 +83,7 @@ body {
     margin: 0;
     height: 100vh;
 }
+
 header {
     background-color: var(--Blue_800);
     color: var(--auth-header);
@@ -104,6 +102,36 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+
+nav {
+    display: flex; /* Maakt de nav een flex-container */
+    flex-direction: row; /* Zorgt ervoor dat de items horizontaal staan */
+    justify-content: space-between; /* Verspreidt de items gelijkmatig */
+    align-items: center; /* Centreert de items verticaal */
+    width: 100%;
+    padding: 10px;
+}
+
+nav ul {
+    display: flex; /* Zorgt ervoor dat de lijst een flex-container wordt */
+    list-style-type: none;
+    flex-direction: row;
+    gap: 15px; /* Voegt ruimte toe tussen de lijstitems */
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block; /* Zorgt ervoor dat de lijstitems naast elkaar staan */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    display: block;
+}
+
 main {
     background-color: var(--Blue_800);
     font-family: var(--text-font);
@@ -116,16 +144,25 @@ main {
     max-width: 25rem;
     margin: auto;
 }
+
 main p {
     color: var(--Blue_200);
 }
+
 main p a {
     color: var(--green_400);
     text-decoration: none;
 }
+
 main p a:hover {
     color: var(--green_600);
 }
+
+h1 {
+    font-family: var(--title-font);
+    font-size: var(--font-size-title);
+}
+
 input {
     background-color: var(--Blue_200);
     color: var(--Blue_800);
@@ -138,17 +175,20 @@ input {
     box-sizing: border-box;
     margin-bottom: var(--margin_xs);
 }
+
 form select {
     width: 100%;
     font-family: var(--text-font);
     margin: var(--margin_xs);
 }
+
 .auth__header {
     font-family: var(--title-font);
     font-size: var(--font-size-title);
     color: var(--auth-header);
     margin-bottom: var(--margin_m);
 }
+
 #registerForm,
 #loginForm {
     background-color: var(--blue);
@@ -156,6 +196,7 @@ form select {
     border-radius: var(--border-radius_medium);
     text-align: left;
 }
+
 form input,
 form select {
     width: 100%;
@@ -165,9 +206,11 @@ form select {
     background-color: var(--Blue_200);
     color: var(--Blue_800);
 }
+
 input::placeholder {
     color: var(--Blue_800);
 }
+
 button {
     background-color: var(--dark_blue_700);
     font-family: var(--text-font);
@@ -175,14 +218,20 @@ button {
     padding: var(--padding_xs);
     border-radius: var(--border-radius_small);
     cursor: pointer;
-    width: 100%;
+    width: 80%;
     margin-top: var(--margin_xs);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    margin-right: 40px;
 }
+
 .auth__footer {
     font-size: var(--font-size-text);
     color: var(--auth);
     margin-top: var(--margin_xs);
 }
+
 form #error-message {
     color: var(--error-color);
     font-size: var(--font-size-text);
