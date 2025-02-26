@@ -194,7 +194,7 @@ form select {
     background-color: var(--blue);
     padding: var(--padding_xs);
     border-radius: var(--border-radius_medium);
-    text-align: left;
+    text-align: center;
 }
 
 form input,
@@ -223,7 +223,6 @@ button {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    margin-right: 40px;
 }
 
 .auth__footer {
