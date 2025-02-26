@@ -1,22 +1,32 @@
 import supabase from './db.js'; // Zorg dat db.js een geconfigureerde Supabase client exporteert
 
 export const uploadProfilePictureUtil = async (file, userId) => {
-  // Zorg voor een unieke bestandsnaam (gebruik userId + timestamp)
-  const filePath = `avatars/${userId}-${Date.now()}-${file.originalname}`;
+    const fileExt = file.mimetype.split("/")[1];
+    const filePath = `avatars/${userId}.${fileExt}`; // 🔥 Gebruik een vast pad om de oude te overschrijven
 
-  // Upload het bestand naar Supabase Storage (avatars bucket)
-  const { data, error: uploadError } = await supabase.storage
-    .from("avatars")
-    .upload(filePath, file.buffer, {
-      cacheControl: "3600",
-      upsert: true // Hiermee overschrijf je een oude avatar als die al bestaat
-    });
+    console.log("📂 Upload naar Supabase:", filePath);
 
-  if (uploadError) {
-    throw uploadError;
-  }
+    // 🔥 Eerst de oude avatar verwijderen (indien die bestaat)
+    await supabase.storage.from("avatars").remove([filePath]);
 
-  // Verkrijg de public URL van het geüploade bestand
-  const { publicUrl } = supabase.storage.from("avatars").getPublicUrl(filePath);
-  return publicUrl;
+    // 🚀 Vervolgens de nieuwe avatar uploaden
+    const { data, error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, file.buffer, {
+            cacheControl: "3600",
+            contentType: file.mimetype,
+            upsert: true // 🔥 Overschrijf altijd de vorige afbeelding
+        });
+
+    if (uploadError) {
+        console.error("❌ Fout bij uploaden naar Supabase:", uploadError.message);
+        throw uploadError;
+    }
+
+    // ✅ Haal de correcte Public URL als STRING (nu goed uit het object gehaald)
+    const { data: publicUrlData } = supabase.storage.from("avatars").getPublicUrl(filePath);
+    const publicUrl = publicUrlData.publicUrl; // 🔥 Dit haalt de string uit het object
+    console.log("✅ Public URL gegenereerd:", publicUrl);
+
+    return publicUrl; // 🔥 Geef alleen de STRING terug, geen object
 };

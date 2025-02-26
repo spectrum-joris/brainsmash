@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mijn Profiel - Leerling</title>
   <link rel="stylesheet" href="../styles/style.css">
+  <script src="../scripts/utilities/material_icons.js"></script>
 </head>
 <body>
     <div id="header"></div>
@@ -12,10 +13,12 @@
         <h1 class="profile__title">Mijn Profiel</h1>
         
         <div class="profile__avatar">
-        <img id="avatar" class="profile__avatar-image" src="../public/icons/person.svg" alt="Avatar">
-        <input type="file" id="avatarUpload" class="profile__avatar-input">
-        <button id="uploadBtn" class="profile__avatar-button">Profielfoto wijzigen</button>
-        </div>
+            <label for="avatarUpload" class="profile__avatar-label">
+                <img id="avatar" class="profile__avatar-image" alt="Avatar">
+                <i id="avatarIcon" class="material-icons profile__avatar-icon">person</i>
+            </label>
+            <input type="file" id="avatarUpload" class="profile__avatar-input" accept="image/*">
+        </div>        
         
         <div class="profile__info">
         <h2 id="nickname" class="profile__nickname">Leerling</h2>

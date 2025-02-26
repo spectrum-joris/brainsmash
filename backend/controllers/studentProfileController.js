@@ -64,19 +64,24 @@ export const uploadProfilePicture = async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "Geen bestand geüpload" });
 
   try {
-    const publicUrl = await uploadProfilePictureUtil(req.file, user.id);
+      const publicUrl = await uploadProfilePictureUtil(req.file, user.id);
 
-    // Update de profielfoto-URL in de "users" tabel
-    const { error: updateError } = await supabase
-      .from("users")
-      .update({ avatar_url: publicUrl })
-      .eq("id", user.id);
+      console.log("🚀 Public URL:", publicUrl);
 
-    if (updateError) return res.status(500).json({ error: updateError.message });
+      // **Updaten van de avatar URL in de users tabel**
+      const { error: updateError } = await supabase
+          .from("users")
+          .update({ avatar_url: publicUrl })
+          .eq("id", user.id);
 
-    res.status(200).json({ avatar_url: publicUrl });
+      if (updateError) {
+          console.error("❌ Fout bij updaten van de database:", updateError.message);
+          return res.status(500).json({ error: updateError.message });
+      }
+
+      res.status(200).json({ avatar_url: publicUrl });
   } catch (error) {
-    console.error("Upload fout:", error);
-    res.status(500).json({ error: "Er is een fout opgetreden bij het uploaden" });
+      console.error("❌ Upload fout:", error);
+      res.status(500).json({ error: "Er is een fout opgetreden bij het uploaden" });
   }
 };

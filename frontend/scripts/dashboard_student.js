@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         quizList.innerHTML = quizzes.map(quiz => `
             <div class="quiz-card">
                 <h3>${quiz.title}</h3>
-                <p><strong>Vak:</strong> ${quiz.course}</p>
+                <p><strong>Vak:</strong> ${quiz.subject ? quiz.subject.subject_name : "Onbekend vak"}</p>
                 <p><strong>Moeilijkheid:</strong> ${quiz.difficulty}</p>
                 <button onclick="startQuiz('${quiz.id}')">Start Quiz</button>
             </div>
-        `).join("");
+        `).join("");        
 
     } catch (error) {
         console.error("❌ Fout bij ophalen quizzen:", error);

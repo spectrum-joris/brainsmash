@@ -23,9 +23,9 @@ export const getQuizzesForStudent = async (req, res) => {
 
         // ✅ Zoek alle quizzes voor die richting
         const { data: quizzes, error: quizError } = await supabase
-            .from("quizzes")
-            .select("*")
-            .eq("program_id", program_id);
+        .from("quizzes")
+        .select("id, title, difficulty, subject:subjects(subject_name), program_id")
+        .eq("program_id", program_id);
 
         if (quizError) {
             return res.status(400).json({ error: quizError.message });
