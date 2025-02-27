@@ -1,4 +1,10 @@
+import { enableMouseFollowEffect } from "./utilities/auth-mouse_follow.js";
+
 document.addEventListener("DOMContentLoaded", () => {
+
+    // Activeer de reflectie
+    enableMouseFollowEffect();
+
     const registerForm = document.getElementById("registerForm");
 
     if (registerForm) {

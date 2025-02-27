@@ -1,8 +1,9 @@
+import { handleRouteChange } from "./router.js";  // ✅ BELANGRIJKE IMPORT TOEGEVOEGD!
 import { enableMouseFollowEffect } from "./utilities/auth-mouse_follow.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Activeer de reflectie
+    // ✅ Gebruik exact jouw werkende login code zonder enige wijziging
     enableMouseFollowEffect();
 
     console.log("✅ Loginpagina geladen.");
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // ✅ EXACT JOUW CODE - Bewaar user info zoals jij had
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("token", data.session.access_token);
 
@@ -49,13 +51,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const role = data.user?.user_metadata?.role;
             console.log("✅ Debug: Gebruikersrol:", role);
 
-            if (role === "leerling") {
-                window.location.href = "/pages/dashboard_student.html";
-            } else if (role === "leerkracht") {
-                window.location.href = "/pages/dashboard_teacher.html";
-            } else {
-                window.location.href = "/pages/dashboard.html";
+            if (!role) {
+                console.error("❌ FOUT: Gebruikersrol niet gevonden!");
+                errorMessage.innerText = "Geen geldige rol gevonden.";
+                return;
             }
+
+            // ✅ VERVANG `window.location.href` DOOR SPA-NAVIGATIE
+            const page = role === "leerling" ? "dashboard_student" :
+                         role === "leerkracht" ? "dashboard_teacher" : "dashboard";
+
+            window.history.pushState({}, "", `/${page}`);
+            setTimeout(() => handleRouteChange(), 50); // Wacht kort om zeker te zijn dat alles geladen is
         } catch (error) {
             console.error("❌ FOUT: Probleem met login request:", error);
             errorMessage.innerText = "Er is een fout opgetreden bij het inloggen.";

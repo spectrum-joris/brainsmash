@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <header>
+    <header class="header--static">
         <h1>BRAINSMASH</h1>
         <div id="logo_brainsmash"></div>
     </header>
-    <main>
+    <section class="auth__container">
         <h1>Registreren</h1>
         <form id="registerForm">
             <input type="text" id="full_name" placeholder="Volledige naam" required>
@@ -40,7 +40,7 @@
         </form>
         <p id="error-message" style="color: red;"></p>
         <p>Heb je al een account? <a href="/pages/login.html">Log in</a></p>
-    </main>
-    <script src="../scripts/register.js"></script>
+    </section>
+    <script type="module" src="../scripts/register.js"></script>
 </body>
 </html>
